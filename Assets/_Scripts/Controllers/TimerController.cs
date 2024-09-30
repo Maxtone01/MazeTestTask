@@ -32,7 +32,7 @@ namespace _Scripts.Controllers
 
         private void Update()
         {
-            if (startTimer)
+            if (startTimer & !GameContext.Instance.IsPaused)
             {
                 UpdateTimerValue();
             }

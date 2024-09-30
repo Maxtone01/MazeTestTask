@@ -27,6 +27,7 @@ namespace _Scripts.UI
         public void ShowHidePauseMenu()
         {
             _pauseMenu.gameObject.SetActive(!_pauseMenu.activeSelf);
+            Cursor.visible = !_pauseMenu.activeSelf;
         } 
 
         private void ShowEndGamePanel()

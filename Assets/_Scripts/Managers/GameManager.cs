@@ -1,12 +1,10 @@
-using System;
 using _Scripts.Controllers;
-using Assets.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace _Scripts.Managers
 {
-    public class GameManager : MonoBehaviour, IPauseHandler
+    public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
         [SerializeField] private TimerController _timerController;
@@ -35,13 +33,15 @@ namespace _Scripts.Managers
             
             Instance = this;
             
-            GameContext.Instance.Initialize();
-            GameContext.Instance.PauseManager.Register(this);
-            
             DontDestroyOnLoad(gameObject);
             _timerController.StartTimer();
         }
 
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
+        
         public void ActivateFirstScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
@@ -49,7 +49,8 @@ namespace _Scripts.Managers
 
         public void SetPause(bool isPaused)
         {
-       
+            GameContext.Instance.PauseManagerObject.SetPause(isPaused);
+            EventManager.Instance.NotifyPauseSet();
         }
     }
 }

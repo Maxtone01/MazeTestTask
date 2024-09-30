@@ -1,12 +1,13 @@
+using Assets.Scripts.Interfaces;
 using UnityEngine;
 
-public class GameContext : MonoBehaviour
+public class GameContext : MonoBehaviour, IPauseHandler
 {
-    public PauseManager PauseManager { get; private set; }
+    public PauseManager PauseManagerObject { get; private set; }
 
     public static GameContext Instance { get; private set; }
 
-    public bool IsPaused => PauseManager.IsPaused;
+    public bool IsPaused => PauseManagerObject.IsPaused;
 
     private void Awake()
     {
@@ -16,11 +17,17 @@ public class GameContext : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        Initialize();
+        PauseManagerObject.Register(this);
     }
 
-    public void Initialize()
+    private void Initialize()
     {
-        PauseManager = new PauseManager();
+        PauseManagerObject = new PauseManager();
+    }
+
+    public void SetPause(bool isPaused)
+    {
+        
     }
 }

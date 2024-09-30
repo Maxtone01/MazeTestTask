@@ -11,12 +11,10 @@ namespace _Scripts.Managers
                 EnableDisablePause();
             }
         }
-        
+
         private static void EnableDisablePause()
         {
-            GameContext.Instance.PauseManager.SetPause(!GameContext.Instance.PauseManager.IsPaused);
-            GameManager.Instance.SetPause(true);
-            EventManager.Instance.NotifyPauseSet();
+            GameManager.Instance.SetPause(!GameContext.Instance.PauseManagerObject.IsPaused);
         }
     }
 }
